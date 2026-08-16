@@ -1,12 +1,24 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #0f0f0f;
+@theme {
+  --font-sans: var(--font-sans);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  background: #ffffff;
+  color: #0a0a0a;
+  -webkit-font-smoothing: antialiased;
+}
+
+.logo-font {
+  font-family: var(--font-logo), cursive;
 }
