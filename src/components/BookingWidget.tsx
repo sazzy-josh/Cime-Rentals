@@ -1,67 +1,94 @@
 "use client";
 
 import { useState } from "react";
+import { CONTACT } from "@/data/contact";
 
-const TRIP_TYPES = ["Airport Pickup", "Hourly", "Daily", "Interstate"];
-const LOCATIONS = ["Lagos", "Abuja", "Port Harcourt", "Ibadan", "Kano"];
+const TRIP_TYPES = [
+  { id: "airport", label: "Airport" },
+  { id: "hourly", label: "Hourly" },
+  { id: "daily", label: "Full day" },
+  { id: "interstate", label: "Interstate" },
+];
+
+const CITIES = ["Lagos", "Abuja", "Port Harcourt", "Delta", "Oyo", "Abia"];
 
 export default function BookingWidget() {
-  const [tripType, setTripType] = useState("Daily");
-  const [location, setLocation] = useState("");
+  const [tripType, setTripType] = useState("daily");
+  const [city, setCity] = useState("");
   const [date, setDate] = useState("");
 
+  function handleBook() {
+    const tripLabel = TRIP_TYPES.find((t) => t.id === tripType)?.label ?? tripType;
+    const parts = [`Hi Cime! I'd like to book a *${tripLabel}* trip`];
+    if (city) parts.push(`in *${city}*`);
+    if (date) parts.push(`on *${date}*`);
+    parts.push("— please help me find a vehicle.");
+    const message = encodeURIComponent(parts.join(" "));
+    window.open(`${CONTACT.whatsapp.url}?text=${message}`, "_blank", "noopener,noreferrer");
+  }
+
   return (
-    <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-2xl">
-      {/* Trip type tabs */}
-      <div className="flex gap-2 flex-wrap mb-5">
-        {TRIP_TYPES.map((t) => (
+    <div
+      id="booking"
+      className="bg-white/6 border border-white/12 backdrop-blur-sm p-6 w-full max-w-xl"
+    >
+      {/* Trip type */}
+      <div className="flex gap-2 flex-wrap mb-6 border-b border-white/10 pb-5">
+        {TRIP_TYPES.map(({ id, label }) => (
           <button
-            key={t}
-            onClick={() => setTripType(t)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-              tripType === t
-                ? "bg-amber-500 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+            key={id}
+            onClick={() => setTripType(id)}
+            className={`px-3.5 py-1.5 text-[0.68rem] font-bold uppercase tracking-widest transition-all ${
+              tripType === id
+                ? "bg-[#0055FF] text-white"
+                : "text-white/50 border border-white/15 hover:border-white/35 hover:text-white/80"
             }`}
           >
-            {t}
+            {label}
           </button>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className="flex flex-col gap-1">
-          <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-            Pickup location
-          </label>
+      <div className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-3 items-end">
+        <label className="flex flex-col gap-1.5">
+          <span className="text-[0.6rem] uppercase tracking-widest text-white/40 font-bold">
+            City
+          </span>
           <select
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-400"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            className="bg-white/6 border border-white/12 text-white text-sm px-3 py-2.5 focus:outline-none focus:border-[#0055FF] transition-colors appearance-none"
           >
-            <option value="">Select city</option>
-            {LOCATIONS.map((l) => (
-              <option key={l} value={l}>{l}</option>
+            <option value="" style={{ background: "#111" }}>Select city</option>
+            {CITIES.map((c) => (
+              <option key={c} value={c} style={{ background: "#111" }}>{c}</option>
             ))}
           </select>
-        </div>
+        </label>
 
-        <div className="flex flex-col gap-1">
-          <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-            Pickup date
-          </label>
+        <label className="flex flex-col gap-1.5">
+          <span className="text-[0.6rem] uppercase tracking-widest text-white/40 font-bold">
+            Date
+          </span>
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-400"
+            className="bg-white/6 border border-white/12 text-white/70 text-sm px-3 py-2.5 focus:outline-none focus:border-[#0055FF] transition-colors"
           />
-        </div>
+        </label>
 
-        <button className="self-end bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-xl px-6 py-2.5 text-sm transition-colors">
-          Search cars
+        <button
+          onClick={handleBook}
+          className="bg-[#0055FF] hover:bg-[#0044DD] text-white font-bold text-sm px-5 py-2.5 transition-colors whitespace-nowrap"
+        >
+          Book now →
         </button>
       </div>
+
+      <p className="mt-4 text-[0.65rem] text-white/30 tracking-wide">
+        Verified professional drivers &nbsp;·&nbsp; Fuel included on chauffeured trips
+      </p>
     </div>
   );
 }
