@@ -85,7 +85,10 @@ export default function PhotoGallery({
           onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
           onTouchEnd={(e) => {
             const delta = e.changedTouches[0].clientX - touchStartX.current;
-            if (Math.abs(delta) > 50) delta < 0 ? next() : prev();
+            if (Math.abs(delta) > 50) {
+              if (delta < 0) next();
+              else prev();
+            }
           }}
         >
           {/* Top bar */}

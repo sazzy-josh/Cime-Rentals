@@ -26,12 +26,12 @@ export default function FeaturedSection({ vehicles }: { vehicles: FeaturedVehicl
               Featured vehicles
             </h2>
           </div>
-          <a
+          <Link
             href="/car-rentals#rentals"
             className="shrink-0 hidden sm:inline-block text-[0.68rem] font-bold uppercase tracking-widest text-gray-400 hover:text-[#0a0a0a] transition-colors"
           >
             See all →
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -105,9 +105,9 @@ export default function FeaturedSection({ vehicles }: { vehicles: FeaturedVehicl
       </div>
 
       <div className="mt-4 text-center sm:hidden">
-        <a href="/car-rentals#rentals" className="text-[0.68rem] font-bold uppercase tracking-widest text-gray-400 hover:text-[#0a0a0a] transition-colors">
+        <Link href="/car-rentals#rentals" className="text-[0.68rem] font-bold uppercase tracking-widest text-gray-400 hover:text-[#0a0a0a] transition-colors">
           See all vehicles →
-        </a>
+        </Link>
       </div>
     </section>
   );

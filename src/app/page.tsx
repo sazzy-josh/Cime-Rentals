@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { FLEET_VEHICLES } from "@/data/fleetVehicles";
@@ -107,18 +108,18 @@ export default function Home() {
           </div>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <a
+            <Link
               href="/car-rentals"
               className="rounded-full bg-white hover:bg-white/85 text-[#0a0a0a] font-bold text-sm px-6 py-3 transition-colors"
             >
               Rent a car →
-            </a>
-            <a
+            </Link>
+            <Link
               href="/fleet"
               className="rounded-full border border-white/25 hover:border-white/50 hover:bg-white/10 text-white font-bold text-sm px-6 py-3 transition-colors"
             >
               Charter a jet →
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -145,12 +146,12 @@ export default function Home() {
                 {FLEET_VEHICLES.length} vehicles, one standard
               </h2>
             </div>
-            <a
+            <Link
               href="/car-rentals"
               className="shrink-0 text-[0.7rem] font-bold uppercase tracking-widest text-gray-400 hover:text-[#0a0a0a] transition-colors"
             >
               View more vehicles →
-            </a>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import BookingWidget from "@/components/BookingWidget";
 import FleetGrid from "@/components/FleetGrid";
@@ -200,12 +201,12 @@ export default function CarRentalsPage() {
               or call {CONTACT.phone.number}
             </a>
             <span className="text-white/20 hidden sm:inline">|</span>
-            <a
+            <Link
               href="/"
               className="text-[0.72rem] font-bold text-white hover:opacity-70 transition-opacity"
             >
               Explore the Luxury Fleet →
-            </a>
+            </Link>
           </div>
 
           <div className="hero-stats mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-white/10 flex flex-wrap justify-center gap-3 sm:gap-4">
@@ -372,12 +373,12 @@ export default function CarRentalsPage() {
                 Driver and fuel included on most bookings.
               </p>
             </div>
-            <a
+            <Link
               href="/fleet"
               className="shrink-0 text-[0.7rem] font-bold uppercase tracking-widest text-gray-400 hover:text-[#0a0a0a] transition-colors"
             >
               Need to fly instead? Charter a private jet →
-            </a>
+            </Link>
           </div>
 
           <FleetGrid vehicles={ALL_RENTAL_VEHICLES} />
