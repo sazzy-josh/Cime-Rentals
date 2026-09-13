@@ -1,13 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Great_Vibes } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-const greatVibes = Great_Vibes({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-logo",
-});
 
 export const metadata: Metadata = {
   title: "Cime Rentals — Premium Car Hire",
@@ -17,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${greatVibes.variable}`}>
+    <html lang="en">
       <body className="antialiased">{children}</body>
     </html>
   );

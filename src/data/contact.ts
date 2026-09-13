@@ -1,8 +1,8 @@
 export const CONTACT = {
   whatsapp: {
-    number: "+234 802 676 0908",
-    raw: "+2348026760908",
-    url: "https://wa.me/2348026760908",
+    number: "+234 704 128 3370",
+    raw: "+2347041283370",
+    url: "https://wa.me/2347041283370",
     label: "Chat on WhatsApp",
   },
   phone: {

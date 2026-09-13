@@ -15,20 +15,20 @@ function SeatIcon() {
 
 export default function FeaturedSection({ vehicles }: { vehicles: FeaturedVehicle[] }) {
   return (
-    <section className="py-20 bg-[#0a0a0a] overflow-hidden">
+    <section className="py-20 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="flex items-end justify-between gap-6 mb-10">
           <div>
-            <p className="text-[0.63rem] uppercase tracking-[0.22em] text-[#0055FF] font-bold mb-2">
+            <p className="text-[0.63rem] uppercase tracking-[0.22em] text-[#0a0a0a] font-bold mb-2">
               Hand-picked for you
             </p>
-            <h2 className="text-3xl sm:text-4xl font-black leading-tight tracking-tight text-white">
+            <h2 className="text-3xl sm:text-4xl font-black leading-tight tracking-tight text-[#0a0a0a]">
               Featured vehicles
             </h2>
           </div>
           <a
-            href="#fleet"
-            className="shrink-0 hidden sm:inline-block text-[0.68rem] font-bold uppercase tracking-widest text-white/40 hover:text-white transition-colors"
+            href="/car-rentals#rentals"
+            className="shrink-0 hidden sm:inline-block text-[0.68rem] font-bold uppercase tracking-widest text-gray-400 hover:text-[#0a0a0a] transition-colors"
           >
             See all →
           </a>
@@ -41,12 +41,12 @@ export default function FeaturedSection({ vehicles }: { vehicles: FeaturedVehicl
         <div
           aria-hidden
           className="hidden sm:block pointer-events-none absolute left-0 inset-y-0 w-8 z-10"
-          style={{ background: "linear-gradient(to right, #0a0a0a, transparent)" }}
+          style={{ background: "linear-gradient(to right, #fff, transparent)" }}
         />
         <div
           aria-hidden
           className="hidden sm:block pointer-events-none absolute right-0 inset-y-0 w-8 z-10"
-          style={{ background: "linear-gradient(to left, #0a0a0a, transparent)" }}
+          style={{ background: "linear-gradient(to left, #fff, transparent)" }}
         />
 
         <div
@@ -56,11 +56,11 @@ export default function FeaturedSection({ vehicles }: { vehicles: FeaturedVehicl
           {vehicles.map((car) => (
             <Link
               key={`${car.name}-${car.location}`}
-              href={car.slug ? `/vehicles/${car.slug}` : "/#booking"}
-              className="snap-start shrink-0 w-[240px] sm:w-[260px] bg-white/4 border border-white/8 flex flex-col group hover:border-[#0055FF]/50 transition-colors duration-200"
+              href={car.slug ? `/vehicles/${car.slug}` : "/car-rentals#booking"}
+              className="snap-start shrink-0 w-[240px] sm:w-[260px] bg-[#f7f7f7] border border-black/8 flex flex-col group hover:bg-white hover:border-black/20 transition-colors duration-200"
             >
               {/* Image */}
-              <div className="relative h-[148px] overflow-hidden bg-white/5">
+              <div className="relative h-[148px] overflow-hidden bg-gray-100">
                 <Image
                   src={car.image}
                   alt={car.name}
@@ -77,24 +77,24 @@ export default function FeaturedSection({ vehicles }: { vehicles: FeaturedVehicl
 
               {/* Info */}
               <div className="p-4 flex flex-col flex-1">
-                <p className="text-[0.55rem] uppercase tracking-widest text-[#0055FF] font-bold mb-1">
+                <p className="text-[0.55rem] uppercase tracking-widest text-[#0a0a0a] font-bold mb-1">
                   {car.category}
                 </p>
-                <h3 className="text-[0.8125rem] font-bold text-white leading-snug flex-1">
+                <h3 className="text-[0.8125rem] font-bold text-[#0a0a0a] leading-snug flex-1">
                   {car.name}
                 </h3>
 
-                <div className="mt-3 pt-3 border-t border-white/8 flex items-end justify-between gap-2">
+                <div className="mt-3 pt-3 border-t border-black/8 flex items-end justify-between gap-2">
                   <div>
-                    <p className="text-base font-black text-white leading-none">
+                    <p className="text-base font-black text-[#0a0a0a] leading-none">
                       {car.from}
-                      <span className="text-[0.65rem] font-normal text-white/35 ml-1">/ {car.per}</span>
+                      <span className="text-[0.65rem] font-normal text-gray-400 ml-1">/ {car.per}</span>
                     </p>
                     {car.alt && (
-                      <p className="text-[0.6rem] text-white/30 mt-0.5">{car.alt}</p>
+                      <p className="text-[0.6rem] text-gray-400 mt-0.5">{car.alt}</p>
                     )}
                   </div>
-                  <span className="shrink-0 bg-[#0055FF] text-white text-[0.62rem] font-bold uppercase tracking-widest px-3 py-2">
+                  <span className="shrink-0 bg-[#0a0a0a] text-white text-[0.62rem] font-bold uppercase tracking-widest px-3 py-2">
                     {car.slug ? "View" : "Book"}
                   </span>
                 </div>
@@ -105,7 +105,7 @@ export default function FeaturedSection({ vehicles }: { vehicles: FeaturedVehicl
       </div>
 
       <div className="mt-4 text-center sm:hidden">
-        <a href="#fleet" className="text-[0.68rem] font-bold uppercase tracking-widest text-white/35 hover:text-white transition-colors">
+        <a href="/car-rentals#rentals" className="text-[0.68rem] font-bold uppercase tracking-widest text-gray-400 hover:text-[#0a0a0a] transition-colors">
           See all vehicles →
         </a>
       </div>
