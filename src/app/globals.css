@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: var(--font-sans);
-}
-
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -13,12 +9,12 @@ html {
 }
 
 body {
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: "Didot", "Bodoni MT", "Didot LT STD", "Hoefler Text", Georgia, serif;
   background: #ffffff;
   color: #0a0a0a;
   -webkit-font-smoothing: antialiased;
 }
 
 .logo-font {
-  font-family: var(--font-logo), cursive;
+  font-family: "Bodoni 72", "Bodoni 72 Smallcaps", "Didot", "Bodoni MT", Georgia, serif;
 }

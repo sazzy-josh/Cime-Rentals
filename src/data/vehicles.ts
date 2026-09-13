@@ -11,7 +11,7 @@ export type Vehicle = {
   alt: string | null;
   image: string;
   tag: string | null;
-  slug: string;
+  slug?: string;
 };
 
 export const VEHICLES: Vehicle[] = [

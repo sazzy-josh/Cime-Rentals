@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Vehicle } from "@/data/vehicles";
+import { CONTACT } from "@/data/contact";
 
 const FILTERS = [
   { id: "all", label: "All vehicles" },
@@ -56,10 +57,18 @@ export default function FleetGrid({ vehicles }: { vehicles: Vehicle[] }) {
 
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-black/8">
-        {filtered.map((car) => (
+        {filtered.map((car) => {
+          const msg = encodeURIComponent(
+            `Hi Cime! I'd like to enquire about the *${car.name}*. Please share availability and pricing.`
+          );
+          const href = car.slug ? `/vehicles/${car.slug}` : `${CONTACT.whatsapp.url}?text=${msg}`;
+          const external = !car.slug;
+          return (
           <Link
             key={`${car.name}-${car.location}`}
-            href={`/vehicles/${car.slug}`}
+            href={href}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener noreferrer" : undefined}
             className="group bg-white hover:bg-gray-50 transition-colors duration-200 flex flex-col"
           >
             {/* Image */}
@@ -74,7 +83,7 @@ export default function FleetGrid({ vehicles }: { vehicles: Vehicle[] }) {
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
               {car.tag && (
-                <span className="absolute top-3 left-3 bg-[#0055FF] text-white text-[0.58rem] font-black uppercase tracking-widest px-2 py-1">
+                <span className="absolute top-3 left-3 bg-[#0a0a0a] text-white text-[0.58rem] font-black uppercase tracking-widest px-2 py-1">
                   {car.tag}
                 </span>
               )}
@@ -91,7 +100,7 @@ export default function FleetGrid({ vehicles }: { vehicles: Vehicle[] }) {
 
             {/* Info */}
             <div className="p-5 flex flex-col flex-1">
-              <p className="text-[0.58rem] uppercase tracking-widest text-[#0055FF] font-bold mb-1">
+              <p className="text-[0.58rem] uppercase tracking-widest text-[#0a0a0a] font-bold mb-1">
                 {car.category}
               </p>
               <h3 className="font-bold text-[#0a0a0a] leading-snug text-[0.9375rem] flex-1">
@@ -108,13 +117,14 @@ export default function FleetGrid({ vehicles }: { vehicles: Vehicle[] }) {
                     <p className="text-[0.65rem] text-gray-400 mt-1">{car.alt}</p>
                   )}
                 </div>
-                <span className="shrink-0 bg-[#0a0a0a] group-hover:bg-[#0055FF] text-white text-[0.68rem] font-bold uppercase tracking-widest px-4 py-2.5 transition-colors">
+                <span className="shrink-0 bg-[#0a0a0a] group-hover:opacity-75 text-white text-[0.68rem] font-bold uppercase tracking-widest px-4 py-2.5 transition-opacity">
                   View
                 </span>
               </div>
             </div>
           </Link>
-        ))}
+          );
+        })}
       </div>
 
       <p className="mt-6 text-xs text-gray-400 text-center">

@@ -49,7 +49,7 @@ export default function PhotoGallery({
             key={i}
             type="button"
             onClick={() => setOpen(i)}
-            className="relative aspect-[4/3] bg-gray-100 overflow-hidden group focus-visible:outline-2 focus-visible:outline-[#0055FF]"
+            className="relative aspect-[4/3] bg-gray-100 overflow-hidden group focus-visible:outline-2 focus-visible:outline-[#0a0a0a]"
           >
             <Image
               src={photo}
@@ -167,7 +167,7 @@ export default function PhotoGallery({
                   onClick={() => setOpen(i)}
                   className={`shrink-0 relative w-14 h-10 overflow-hidden transition-all ${
                     i === open
-                      ? "ring-2 ring-[#0055FF] opacity-100 scale-105"
+                      ? "ring-2 ring-white opacity-100 scale-105"
                       : "opacity-35 hover:opacity-65"
                   }`}
                 >
