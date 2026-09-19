@@ -3,8 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import PhotoGallery from "@/components/PhotoGallery";
+import CheckAvailabilityButton from "@/components/CheckAvailabilityButton";
 import { VEHICLE_DETAILS } from "@/data/vehicleDetails";
 import { CONTACT } from "@/data/contact";
+
+// Some names carry the city, e.g. "2023 Lexus LX570 (Port Harcourt)" — locations aren't shown on the site.
+const displayName = (name: string) => name.replace(/\s*\([^)]*\)\s*$/, "");
 
 export async function generateStaticParams() {
   return Object.keys(VEHICLE_DETAILS).map((slug) => ({ slug }));
@@ -15,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const v = VEHICLE_DETAILS[slug];
   if (!v) return {};
   return {
-    title: `${v.name} — Cime Rentals`,
+    title: `${displayName(v.name)} — Cime Rentals`,
     description: v.description.slice(0, 155),
   };
 }
@@ -25,16 +29,6 @@ function FeatureTag({ label }: { label: string }) {
     <span className="inline-flex items-center gap-1.5 border border-black/12 px-3 py-1.5 text-[0.7rem] font-semibold text-[#0a0a0a] uppercase tracking-widest">
       {label}
     </span>
-  );
-}
-
-function PriceRow({ label, priceNGN }: { label: string; priceNGN: number }) {
-  const formatted = `₦${priceNGN.toLocaleString("en-NG")}`;
-  return (
-    <div className="flex items-center justify-between py-4 border-b border-black/6 last:border-0">
-      <span className="text-sm text-gray-500">{label}</span>
-      <span className="text-base font-black text-[#0a0a0a]">{formatted}</span>
-    </div>
   );
 }
 
@@ -54,7 +48,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
         {hero && (
           <Image
             src={hero}
-            alt={v.name}
+            alt={displayName(v.name)}
             fill
             priority
             className="object-cover opacity-90"
@@ -68,15 +62,15 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
         <div className="absolute bottom-0 left-0 right-0 max-w-7xl mx-auto px-5 sm:px-8 pb-10">
           <Link
             href="/car-rentals#rentals"
-            className="inline-flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors mb-4"
+            className="inline-flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-widest text-white/80 hover:text-white transition-colors mb-4"
           >
             ← Back to rentals
           </Link>
-          <p className="text-[0.63rem] uppercase tracking-[0.22em] text-white/70 font-bold mb-2">
-            {v.vehicleType} &nbsp;·&nbsp; {v.location}
+          <p className="text-[0.63rem] uppercase tracking-[0.22em] text-white/90 font-bold mb-2">
+            {v.vehicleType}
           </p>
           <h1 className="text-3xl sm:text-5xl font-black text-white leading-tight tracking-tight">
-            {v.name}
+            {displayName(v.name)}
           </h1>
         </div>
       </div>
@@ -96,7 +90,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
                 { label: "Max duration", value: v.maxTripDuration },
               ].map(({ label, value }) => (
                 <div key={label} className="bg-white p-5">
-                  <p className="text-[0.58rem] uppercase tracking-widest text-gray-400 font-bold mb-1">
+                  <p className="text-[0.58rem] uppercase tracking-widest text-gray-600 font-bold mb-1">
                     {label}
                   </p>
                   <p className="text-[0.9375rem] font-bold text-[#0a0a0a]">{value}</p>
@@ -109,7 +103,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
               <p className="text-[0.63rem] uppercase tracking-[0.22em] text-[#0a0a0a] font-bold mb-4">
                 About this vehicle
               </p>
-              <p className="text-base text-gray-600 leading-relaxed max-w-2xl">
+              <p className="text-base text-gray-700 leading-relaxed max-w-2xl">
                 {v.description}
               </p>
             </div>
@@ -134,36 +128,26 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
                 <p className="text-[0.63rem] uppercase tracking-[0.22em] text-[#0a0a0a] font-bold mb-5">
                   More photos
                 </p>
-                <PhotoGallery name={v.name} photos={rest} />
+                <PhotoGallery name={displayName(v.name)} photos={rest} />
               </div>
             )}
           </div>
 
-          {/* Right column — sticky pricing + CTA */}
+          {/* Right column — sticky booking card */}
           <div>
             <div className="lg:sticky lg:top-28">
               <div className="border border-black/8 p-8">
-                <p className="text-[0.63rem] uppercase tracking-[0.22em] text-[#0a0a0a] font-bold mb-6">
-                  Pricing
+                <p className="text-[0.63rem] uppercase tracking-[0.22em] text-[#0a0a0a] font-bold mb-3">
+                  Book this vehicle
                 </p>
-
-                <div className="mb-6">
-                  {v.pricing.map((p) => (
-                    <PriceRow key={p.label} label={p.label} priceNGN={p.priceNGN} />
-                  ))}
-                </div>
-
-                <p className="text-[0.65rem] text-gray-400 mb-6 leading-relaxed">
-                  All prices include driver and starting fuel.
-                  Extra hours billed at ₦20,000 / hr after your booking period ends.
+                <p className="text-sm text-gray-700 leading-relaxed mb-6">
+                  Message us and we&apos;ll confirm availability and put together a quote for your
+                  trip.
                 </p>
 
                 {(() => {
-                  const lowestPrice = v.pricing.length
-                    ? `₦${Math.min(...v.pricing.map((p) => p.priceNGN)).toLocaleString("en-NG")}`
-                    : "";
                   const msg = encodeURIComponent(
-                    `Hi Cime! I'd like to book the *${v.name}* (${v.year}, ${v.location}).${lowestPrice ? ` Starting from ${lowestPrice}.` : ""} Please help me arrange this.`
+                    `Hi Cime! I'd like to book the *${displayName(v.name)}* (${v.year}). Please help me arrange this.`
                   );
                   return (
                     <a
@@ -180,15 +164,22 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
                   );
                 })()}
 
+                <CheckAvailabilityButton
+                  name={displayName(v.name)}
+                  className="mt-3 w-full border border-black/15 hover:border-[#0a0a0a] hover:bg-[#0a0a0a] hover:text-white text-[#0a0a0a] font-bold text-[0.8rem] uppercase tracking-widest text-center py-4 transition-colors"
+                >
+                  Check availability
+                </CheckAvailabilityButton>
+
                 <div className="mt-5 pt-5 border-t border-black/6 grid grid-cols-2 gap-4 text-center">
                   <div>
-                    <p className="text-[0.58rem] uppercase tracking-widest text-gray-400 font-bold mb-1">
+                    <p className="text-[0.58rem] uppercase tracking-widest text-gray-600 font-bold mb-1">
                       Year
                     </p>
                     <p className="text-sm font-bold">{v.year}</p>
                   </div>
                   <div>
-                    <p className="text-[0.58rem] uppercase tracking-widest text-gray-400 font-bold mb-1">
+                    <p className="text-[0.58rem] uppercase tracking-widest text-gray-600 font-bold mb-1">
                       Color
                     </p>
                     <p className="text-sm font-bold">{v.color}</p>
@@ -207,7 +198,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
                 </svg>
                 <div>
                   <p className="text-[0.7rem] font-bold text-[#0a0a0a] mb-0.5">Need help choosing?</p>
-                  <p className="text-xs text-gray-500">Chat with our team — available 24/7.</p>
+                  <p className="text-xs text-gray-700">Chat with our team — available 24/7.</p>
                 </div>
               </a>
             </div>
@@ -222,7 +213,7 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
             <h2 className="text-2xl sm:text-3xl font-black text-[#0a0a0a] leading-tight">
               Browse more rentals
             </h2>
-            <p className="mt-2 text-gray-500 text-sm">
+            <p className="mt-2 text-gray-700 text-sm">
               {Object.keys(VEHICLE_DETAILS).length} vehicles available across Nigeria.
             </p>
           </div>

@@ -19,7 +19,7 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
   {
     name: "Rolls-Royce Cullinan",
     category: "Ultra-luxury SUV",
-    seats: 4,
+    seats: 5,
     location: "Lagos",
     image: cld("2948b3f3-07ae-42c4-9bb4-37f0d77c5484", "1789156279"),
     from12h: 600000,
@@ -29,7 +29,7 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
   {
     name: "Bentley Bentayga",
     category: "Ultra-luxury SUV",
-    seats: 4,
+    seats: 5,
     location: "Lagos",
     image: cld("8f24dc8f-e181-429a-ac1b-9ccb0bf604b1", "1789156279"),
     from12h: 450000,
@@ -39,7 +39,7 @@ export const FLEET_VEHICLES: FleetVehicle[] = [
   {
     name: "Mercedes-Benz Maybach S650",
     category: "Ultra-luxury sedan",
-    seats: 4,
+    seats: 5,
     location: "Abuja",
     image: cld("f82ca746-8797-45c6-9126-ba0d38b53d2a", "1789155920"),
     from12h: 420000,

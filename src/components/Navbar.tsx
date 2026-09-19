@@ -29,7 +29,7 @@ export default function Navbar() {
   const logoColor = scrolled ? "#0a0a0a" : "#fff";
   const linkClass = scrolled
     ? "text-[#333] hover:text-[#0a0a0a]"
-    : "text-white/75 hover:text-white";
+    : "text-white/90 hover:text-white";
 
   return (
     <header
@@ -39,7 +39,7 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 grid grid-cols-[auto_1fr_auto] items-center h-[68px]">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 grid grid-cols-[1fr_auto_1fr] items-center h-[68px]">
         {/* Left — nav links (desktop) / menu button (mobile) */}
         <div className="flex items-center">
           <nav className="hidden md:flex items-center gap-7 text-[0.8rem] font-medium tracking-wide">

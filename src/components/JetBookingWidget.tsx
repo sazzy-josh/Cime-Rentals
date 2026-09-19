@@ -48,7 +48,7 @@ export default function JetBookingWidget() {
               className={`rounded-full px-3.5 py-1.5 text-[0.68rem] font-bold uppercase tracking-widest transition-all ${
                 tripType === id
                   ? "bg-white text-[#0a0a0a]"
-                  : "text-white/60 border border-white/20 hover:border-white/40 hover:text-white/90"
+                  : "text-white/85 border border-white/20 hover:border-white/40 hover:text-white"
               }`}
             >
               {label}
@@ -58,7 +58,7 @@ export default function JetBookingWidget() {
 
         <div className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_1fr_auto_auto] gap-3 items-end">
           <label className="flex flex-col gap-1.5">
-            <span className="text-[0.6rem] uppercase tracking-widest text-white/50 font-bold">
+            <span className="text-[0.6rem] uppercase tracking-widest text-white/80 font-bold">
               Departure city
             </span>
             <select
@@ -74,7 +74,7 @@ export default function JetBookingWidget() {
           </label>
 
           <label className="flex flex-col gap-1.5">
-            <span className="text-[0.6rem] uppercase tracking-widest text-white/50 font-bold">
+            <span className="text-[0.6rem] uppercase tracking-widest text-white/80 font-bold">
               Arrival city
             </span>
             <input
@@ -82,12 +82,12 @@ export default function JetBookingWidget() {
               value={arrival}
               onChange={(e) => setArrival(e.target.value)}
               placeholder="Enter city"
-              className="rounded-xl bg-white/10 border border-white/20 text-white text-sm px-3 py-2.5 focus:outline-none focus:border-white/50 transition-colors placeholder:text-white/35"
+              className="rounded-xl bg-white/10 border border-white/20 text-white text-sm px-3 py-2.5 focus:outline-none focus:border-white/50 transition-colors placeholder:text-white/60"
             />
           </label>
 
           <label className="flex flex-col gap-1.5">
-            <span className="text-[0.6rem] uppercase tracking-widest text-white/50 font-bold">
+            <span className="text-[0.6rem] uppercase tracking-widest text-white/80 font-bold">
               Date
             </span>
             <input
@@ -99,7 +99,7 @@ export default function JetBookingWidget() {
           </label>
 
           <label className="flex flex-col gap-1.5">
-            <span className="text-[0.6rem] uppercase tracking-widest text-white/50 font-bold">
+            <span className="text-[0.6rem] uppercase tracking-widest text-white/80 font-bold">
               Passengers
             </span>
             <select
@@ -121,7 +121,7 @@ export default function JetBookingWidget() {
           </button>
         </div>
 
-        <p className="mt-4 text-[0.65rem] text-white/45 tracking-wide">
+        <p className="mt-4 text-[0.65rem] text-white/75 tracking-wide">
           Verified operators &nbsp;·&nbsp; Response within the hour
         </p>
       </div>

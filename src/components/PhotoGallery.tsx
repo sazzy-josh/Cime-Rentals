@@ -6,9 +6,11 @@ import Image from "next/image";
 export default function PhotoGallery({
   name,
   photos,
+  lightbox = true,
 }: {
   name: string;
   photos: string[]; // gallery photos (hero excluded)
+  lightbox?: boolean; // false = plain tiles, no full-screen preview
 }) {
   const [open, setOpen] = useState<number | null>(null);
   const touchStartX = useRef(0);
@@ -39,6 +41,24 @@ export default function PhotoGallery({
   }, [open, close, prev, next]);
 
   if (photos.length === 0) return null;
+
+  if (!lightbox) {
+    return (
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+        {photos.map((photo, i) => (
+          <div key={i} className="relative aspect-[4/3] bg-gray-100 overflow-hidden">
+            <Image
+              src={photo}
+              alt={`${name} — photo ${i + 2}`}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            />
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <>
@@ -96,17 +116,17 @@ export default function PhotoGallery({
             className="shrink-0 flex items-center justify-between px-5 py-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <span className="text-white/40 text-sm tabular-nums font-medium">
-              {open + 1} <span className="text-white/20">/</span> {photos.length}
+            <span className="text-white/75 text-sm tabular-nums font-medium">
+              {open + 1} <span className="text-white/60">/</span> {photos.length}
             </span>
-            <p className="absolute left-1/2 -translate-x-1/2 text-white/30 text-xs uppercase tracking-widest font-bold hidden sm:block">
+            <p className="absolute left-1/2 -translate-x-1/2 text-white/65 text-xs uppercase tracking-widest font-bold hidden sm:block">
               {name}
             </p>
             <button
               type="button"
               onClick={close}
               aria-label="Close"
-              className="p-2 -mr-2 text-white/40 hover:text-white transition-colors"
+              className="p-2 -mr-2 text-white/75 hover:text-white transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
