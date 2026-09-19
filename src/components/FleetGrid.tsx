@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import CheckAvailabilityButton from "@/components/CheckAvailabilityButton";
 import type { Vehicle } from "@/data/vehicles";
 import { CONTACT } from "@/data/contact";
 
@@ -35,19 +36,21 @@ export default function FleetGrid({ vehicles }: { vehicles: Vehicle[] }) {
     <div>
       {/* Filter tabs */}
       <div className="flex flex-wrap gap-2 mb-10">
-        {FILTERS.map(({ id, label }) => (
+        {FILTERS.filter(
+          ({ id }) => id === "all" || vehicles.some((v) => v.group === id)
+        ).map(({ id, label }) => (
           <button
             key={id}
             onClick={() => setActive(id as FilterId)}
             className={`px-4 py-2 text-[0.7rem] font-bold uppercase tracking-widest transition-all ${
               active === id
                 ? "bg-[#0a0a0a] text-white"
-                : "bg-black/5 text-gray-400 hover:bg-black/10 hover:text-[#0a0a0a]"
+                : "bg-black/5 text-gray-600 hover:bg-black/10 hover:text-[#0a0a0a]"
             }`}
           >
             {label}
             {id !== "all" && (
-              <span className="ml-1.5 opacity-40 font-normal">
+              <span className="ml-1.5 opacity-60 font-normal">
                 ({vehicles.filter((v) => v.group === id).length})
               </span>
             )}
@@ -64,12 +67,9 @@ export default function FleetGrid({ vehicles }: { vehicles: Vehicle[] }) {
           const href = car.slug ? `/vehicles/${car.slug}` : `${CONTACT.whatsapp.url}?text=${msg}`;
           const external = !car.slug;
           return (
-          <Link
+          <div
             key={`${car.name}-${car.location}`}
-            href={href}
-            target={external ? "_blank" : undefined}
-            rel={external ? "noopener noreferrer" : undefined}
-            className="group bg-white hover:bg-gray-50 transition-colors duration-200 flex flex-col"
+            className="group relative bg-white hover:bg-gray-50 transition-colors duration-200 flex flex-col"
           >
             {/* Image */}
             <div className="relative h-52 bg-gray-100 overflow-hidden">
@@ -88,10 +88,6 @@ export default function FleetGrid({ vehicles }: { vehicles: Vehicle[] }) {
                 </span>
               )}
 
-              <span className="absolute top-3 right-3 bg-black/55 text-white text-[0.6rem] font-semibold px-2 py-1 backdrop-blur-sm">
-                {car.location}
-              </span>
-
               <span className="absolute bottom-3 left-3 flex items-center gap-1 text-white/90 text-[0.65rem] font-semibold">
                 <SeatIcon />
                 {car.seats} seats
@@ -104,30 +100,28 @@ export default function FleetGrid({ vehicles }: { vehicles: Vehicle[] }) {
                 {car.category}
               </p>
               <h3 className="font-bold text-[#0a0a0a] leading-snug text-[0.9375rem] flex-1">
-                {car.name}
+                {/* Stretched link: the whole card opens the vehicle, the button stays on top */}
+                <Link
+                  href={href}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
+                  className="after:absolute after:inset-0"
+                >
+                  {car.name}
+                </Link>
               </h3>
 
-              <div className="mt-4 pt-4 border-t border-black/6 flex items-end justify-between gap-3">
-                <div>
-                  <p className="text-lg font-black text-[#0a0a0a] leading-none">
-                    {car.from}
-                    <span className="text-xs font-medium text-gray-400 ml-1">/ {car.per}</span>
-                  </p>
-                  {car.alt && (
-                    <p className="text-[0.65rem] text-gray-400 mt-1">{car.alt}</p>
-                  )}
-                </div>
-                <span className="shrink-0 bg-[#0a0a0a] group-hover:opacity-75 text-white text-[0.68rem] font-bold uppercase tracking-widest px-4 py-2.5 transition-opacity">
-                  View
-                </span>
-              </div>
+              <CheckAvailabilityButton
+                name={car.name}
+                className="relative z-10 mt-4 block w-full bg-[#0a0a0a] hover:opacity-75 text-white text-center text-[0.68rem] font-bold uppercase tracking-widest px-4 py-3 transition-opacity"
+              />
             </div>
-          </Link>
+          </div>
           );
         })}
       </div>
 
-      <p className="mt-6 text-xs text-gray-400 text-center">
+      <p className="mt-6 text-xs text-gray-600 text-center">
         Showing {filtered.length} of {vehicles.length} vehicles
       </p>
     </div>

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import CheckAvailabilityButton from "@/components/CheckAvailabilityButton";
 import type { FeaturedVehicle } from "@/data/featuredVehicles";
 
 function SeatIcon() {
@@ -28,7 +29,7 @@ export default function FeaturedSection({ vehicles }: { vehicles: FeaturedVehicl
           </div>
           <Link
             href="/car-rentals#rentals"
-            className="shrink-0 hidden sm:inline-block text-[0.68rem] font-bold uppercase tracking-widest text-gray-400 hover:text-[#0a0a0a] transition-colors"
+            className="shrink-0 hidden sm:inline-block text-[0.68rem] font-bold uppercase tracking-widest text-gray-600 hover:text-[#0a0a0a] transition-colors"
           >
             See all →
           </Link>
@@ -54,10 +55,9 @@ export default function FeaturedSection({ vehicles }: { vehicles: FeaturedVehicl
           style={{ scrollbarWidth: "none" }}
         >
           {vehicles.map((car) => (
-            <Link
+            <div
               key={`${car.name}-${car.location}`}
-              href={car.slug ? `/vehicles/${car.slug}` : "/car-rentals#booking"}
-              className="snap-start shrink-0 w-[240px] sm:w-[260px] bg-[#f7f7f7] border border-black/8 flex flex-col group hover:bg-white hover:border-black/20 transition-colors duration-200"
+              className="snap-start shrink-0 relative w-[240px] sm:w-[260px] bg-[#f7f7f7] border border-black/8 flex flex-col group hover:bg-white hover:border-black/20 transition-colors duration-200"
             >
               {/* Image */}
               <div className="relative h-[148px] overflow-hidden bg-gray-100">
@@ -81,31 +81,27 @@ export default function FeaturedSection({ vehicles }: { vehicles: FeaturedVehicl
                   {car.category}
                 </p>
                 <h3 className="text-[0.8125rem] font-bold text-[#0a0a0a] leading-snug flex-1">
-                  {car.name}
+                  {/* Stretched link: the whole card opens the vehicle, the button stays on top */}
+                  <Link
+                    href={car.slug ? `/vehicles/${car.slug}` : "/car-rentals#booking"}
+                    className="after:absolute after:inset-0"
+                  >
+                    {car.name}
+                  </Link>
                 </h3>
 
-                <div className="mt-3 pt-3 border-t border-black/8 flex items-end justify-between gap-2">
-                  <div>
-                    <p className="text-base font-black text-[#0a0a0a] leading-none">
-                      {car.from}
-                      <span className="text-[0.65rem] font-normal text-gray-400 ml-1">/ {car.per}</span>
-                    </p>
-                    {car.alt && (
-                      <p className="text-[0.6rem] text-gray-400 mt-0.5">{car.alt}</p>
-                    )}
-                  </div>
-                  <span className="shrink-0 bg-[#0a0a0a] text-white text-[0.62rem] font-bold uppercase tracking-widest px-3 py-2">
-                    {car.slug ? "View" : "Book"}
-                  </span>
-                </div>
+                <CheckAvailabilityButton
+                  name={car.name}
+                  className="relative z-10 mt-3 block w-full bg-[#0a0a0a] hover:opacity-75 text-white text-center text-[0.62rem] font-bold uppercase tracking-widest px-3 py-2.5 transition-opacity"
+                />
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>
 
       <div className="mt-4 text-center sm:hidden">
-        <Link href="/car-rentals#rentals" className="text-[0.68rem] font-bold uppercase tracking-widest text-gray-400 hover:text-[#0a0a0a] transition-colors">
+        <Link href="/car-rentals#rentals" className="text-[0.68rem] font-bold uppercase tracking-widest text-gray-600 hover:text-[#0a0a0a] transition-colors">
           See all vehicles →
         </Link>
       </div>
