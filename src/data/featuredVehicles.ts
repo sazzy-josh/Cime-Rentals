@@ -1,5 +1,7 @@
 // All prices are original muvment.ng prices + ₦20,000 Cime markup
 
+import type { Vehicle } from "@/data/vehicles";
+
 export type FeaturedVehicle = {
   name: string;
   category: string;
@@ -100,3 +102,10 @@ export const FEATURED_VEHICLES: FeaturedVehicle[] = [
     slug: "toyota-prado-2022-lagos-zl1uf1",
   },
 ];
+
+// Adapts the Featured vehicles into Vehicle-shaped cards so they can also be
+// shown in the Top-rated vehicles grid.
+export const FEATURED_AS_VEHICLES: Vehicle[] = FEATURED_VEHICLES.map((car) => ({
+  ...car,
+  tag: null,
+}));

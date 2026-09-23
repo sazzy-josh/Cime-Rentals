@@ -19,8 +19,11 @@ export type Aircraft = {
 
 const CLOUDINARY = "https://res.cloudinary.com/dzv98o7ds/image/upload";
 
-// "v123/abc.jpg" -> full Cloudinary URL in the aircraft photo folder
+// "v123/abc.jpg" -> full Cloudinary URL in the aircraft photo folder.
+// A value that's already a full URL (e.g. from a different Cloudinary
+// account) is passed through unchanged.
 function img(path: string) {
+  if (/^https?:\/\//.test(path)) return path;
   const [version, file] = path.split("/");
   return `${CLOUDINARY}/${version}/switf_jet_dev_staging/${file}`;
 }
@@ -211,7 +214,7 @@ const ALL_AIRCRAFT: Aircraft[] = [
     registration: "5N-BMT",
     location: "Lagos",
     images: [
-      "v1777473499/u1tt4gdyf9bytsggj927.jpg",
+      "https://res.cloudinary.com/wugixe2q/image/upload/v1789998199/IMG_7633.jpg",
       "v1777473499/pp9hdiw7quxipopwqxto.jpg",
       "v1777473499/ql7sxromclm717su60w0.jpg",
       "v1777473499/ltdq4uowqktqh82pbao2.jpg",
@@ -258,7 +261,7 @@ const ALL_AIRCRAFT: Aircraft[] = [
     registration: "5N-OSA",
     location: "Lagos",
     images: [
-      "v1777634004/eorz4ozo0ctl2zqqtzk5.jpg",
+      "https://res.cloudinary.com/wugixe2q/image/upload/v1789998123/IMG_7635.jpg",
       "v1777634009/cxyurmnm07c1mvulqhxu.jpg",
       "v1777634012/gvmj4px3qmnkludlqzv6.jpg",
       "v1777634014/cd168esaq6dw3gicpmel.jpg",
@@ -281,7 +284,7 @@ const ALL_AIRCRAFT: Aircraft[] = [
     location: "Lagos",
     features: WIFI,
     images: [
-      "v1774279053/ifbfya8zijf9hwaj9saz.jpg",
+      "https://res.cloudinary.com/wugixe2q/image/upload/v1789998322/IMG_7636.jpg",
       "v1774279054/b9xgrdf60al4tv7uha7q.jpg",
       "v1774279054/o9ixjzh2qvm7puv5navb.jpg",
       "v1774279054/kkd21svbnwcsa0hqamum.jpg",
@@ -303,7 +306,7 @@ const ALL_AIRCRAFT: Aircraft[] = [
     location: "Lagos",
     features: WIFI,
     images: [
-      "v1774279155/wjhqh8zguzdconwpgx2x.jpg",
+      "https://res.cloudinary.com/wugixe2q/image/upload/v1789998574/IMG_7638.jpg",
       "v1774279156/rdgxp1kmmmsfgsifq6uy.jpg",
       "v1774279156/oadrkfo3ybh5gqakgkhf.jpg",
       "v1774279156/tqlsr7ctqodjsivuchnu.jpg",
@@ -423,7 +426,7 @@ const ALL_AIRCRAFT: Aircraft[] = [
     registration: "5N-ONC",
     location: "Abuja",
     images: [
-      "v1777635005/ren6k5uzmir2l871f5pd.jpg",
+      "https://res.cloudinary.com/wugixe2q/image/upload/v1789998771/IMG_7640.jpg",
       "v1777635005/tz600lo2xrmofe6lazde.jpg",
       "v1777635006/ol1eidyh1cgj9jfaa7hm.jpg",
       "v1777635006/voti9iimmngz3wjonibh.jpg",
@@ -460,7 +463,7 @@ const ALL_AIRCRAFT: Aircraft[] = [
     location: "Abuja",
     features: WIFI,
     images: [
-      "v1774279249/f0sbjge86lsqz5lwdvbv.jpg",
+      "https://res.cloudinary.com/wugixe2q/image/upload/v1789998942/IMG_7642.jpg",
       "v1774279250/lvo2wpa7whkl8jav5a7d.jpg",
       "v1774279250/xbnncalw61io3tlwtpb4.jpg",
       "v1774279250/uh1lws4eyazofbxyxyzg.jpg",
