@@ -7,7 +7,7 @@ import FeaturedSection from "@/components/FeaturedSection";
 import Footer from "@/components/Footer";
 import HeroBackground from "@/components/HeroBackground";
 import { VEHICLES } from "@/data/vehicles";
-import { FEATURED_VEHICLES } from "@/data/featuredVehicles";
+import { FEATURED_VEHICLES, FEATURED_AS_VEHICLES } from "@/data/featuredVehicles";
 import { FLEET_AS_VEHICLES, FLEET_VEHICLES } from "@/data/fleetVehicles";
 import { CONTACT } from "@/data/contact";
 
@@ -126,7 +126,7 @@ const FAQS = [
   },
 ];
 
-const ALL_RENTAL_VEHICLES = [...FLEET_AS_VEHICLES, ...VEHICLES];
+const ALL_RENTAL_VEHICLES = [...FLEET_AS_VEHICLES, ...FEATURED_AS_VEHICLES, ...VEHICLES];
 
 // Hero background is picked at random from the executive fleet photos.
 const HERO_IMAGES = FLEET_VEHICLES.map((car) => ({ src: car.image, alt: car.name }));
